@@ -4,7 +4,7 @@ const mysql = require('mysql2')     //подключаем библиотеку 
 const cors = require('cors')
 const app = express() // мы создаем константу app, вызывает express()
 const PORT = 4000     //создаем порт нашего сервера
-
+const timeConstants = require('./consts/time_consts')
 // подключаемся к базе данных
 const connection = mysql.createConnection({
     host: "localhost", //адрес базы данных
@@ -121,4 +121,93 @@ app.post('/api/insert-attendance', (req, res) => {//обработчик для 
     })
 })
 
+app.post('/api/insert-attendance', (req, res) => {//обработчик для записи в базу
+    const id = req.body.id
+
+    let allCards = req.body.cards
+    let cards = allCards.split(',')
+    let numOfPair = checkCurrentLesson()
+
+    let audience
+    if (numOfPair) {
+        let audienceSql = ` SELECT audience FROM slots WHERE id=${id}`
+        connection.execute(audienceSql, (err, data) => {
+            audience = data;
+        })
+    }
+
+    if (audience && numOfPair) {
+        let date = new Date()
+        date = date.toLocaleDateString()
+        let timitableId
+        let timetableSql = ` SELECT id FROM timitabe WHERE audience=${audience} AND Day=${date} AND NumOfPair=${numOfPair}`
+        connection.execute(audienceSql, (err, data) => {
+            timitableId = data;
+        })
+    }
+
+
+    let sql = ``
+    cards.forEach((card) => {
+        sql = `INSERT INTO normal_attendance(CardCode, TimetableId, Presence) VALUES (${card.trim()}, ${timitableId}, 1)`
+        console.log(sql)
+        connection.query(sql, (err, data) => {
+            console.log('SQL request has been executed')
+        })
+    })
+})
+
+// app.post('api/signin/',(req, res)=>{
+// let login=req.body.login
+// let password=req.body.password
+// console.log(password)
+// })
+app.post('/api/sign-in', (req, res) => {
+    const login = req.body.login
+    const password = req.body.password
+    let sql = `SELECT id FROM teacher WHERE login='${login}' AND password='${password}'`
+   
+    connection.query(sql, (err, data) => {
+        console.log(data)
+        if (data) {
+            res.send(data[0])
+        } else {
+            res.status(200).send({ error: 'Something failed!' });
+        }
+    })
+   
+})
+checkCurrentLesson()
+
+function checkCurrentLesson() {
+    let nowDate = new Date();
+    let time = Date.parse(nowDate)
+    let currentLesson
+
+    if (timeConstants.LESSON_1_START <= time && time <= timeConstants.LESSON_1_END) {
+        
+        currentLesson = 1
+    }
+    else if (timeConstants.LESSON_2_START <= time && time <= timeConstants.LESSON_2_END) {
+        currentLesson = 2
+    }
+    else if (timeConstants.LESSON_3_START <= time && time <= timeConstants.LESSON_3_END) {
+        currentLesson = 3
+    }
+    else if (timeConstants.LESSON_4_START <= time && time <= timeConstants.LESSON_4_END) {
+        currentLesson = 4
+    }
+    else if (timeConstants.LESSON_5_START <= time && time <= timeConstants.LESSON_5_END) {
+        currentLesson = 5
+    }
+    else if (timeConstants.LESSON_6_START <= time && time <= timeConstants.LESSON_6_END) {
+        currentLesson = 6
+    }
+    else if (timeConstants.LESSON_7_START <= time && time <= timeConstants.LESSON_7_END) {
+        currentLesson = 7
+    } else {
+        currentLesson = 0
+    }
+    return currentLesson;
+}
 app.listen(PORT)

@@ -4,8 +4,11 @@ let groups = []
 let lessonId = 0
 
 
-getLessons(2)
-function getLessons(id) {
+getLessons()
+function getLessons() {
+    var url = window.location.href.split("?");
+    var idx = url[1].split('&')
+    let id = idx[0]
     lessonsStr = ``
     const requestURL = `http://localhost:4000/api/get-lessons/`
     const xhr = new XMLHttpRequest()

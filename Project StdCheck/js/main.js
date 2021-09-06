@@ -62,4 +62,5 @@ function getAttendance() {
 		$(`.lessons`).html(str);
 	}
 	xhr.send()
+	
 }
