@@ -61,20 +61,23 @@ header {
   flex-direction: column;
   padding: 1em;
   margin: 1em;
-  background-color: #db4c3f;
+  background-color: #2256c8d8;
 }
 
 .data {
   display: flex;
   margin-top: 5px;
+  justify-content: space-between;
 }
 
 .data:hover {
   background-color: #fff;
 }
 
-.data > .help {
-  margin-left: 10em;
+.data > .sign {
+  width: 10px;
+  text-align: center;
+  margin-right: 50%;
 }
 
 .stat-of-visiting {

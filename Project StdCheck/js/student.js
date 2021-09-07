@@ -47,8 +47,8 @@ function getTimetable(id, lessonId, index) {
     xhr.onload = function () {
         timeTable = JSON.parse(xhr.response)
         timeTable.forEach((item) => {
-            str += `<div class="data">${new Date(item.Day).toDateString()}<div class="help"></div>
-                        <div class="help">${attendances[index].Presence == 0 ? '-' : '+'}</div>
+            str += `<div class="data">${new Date(item.Day).toDateString()}
+                        <div class="sign">${attendances[index].Presence == 0 ? '-' : '+'}</div>
                     </div>`
         })
         $(`.information`).html(str);
