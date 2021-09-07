@@ -10,6 +10,8 @@ body {
   height: auto;
   width: 100%;
   min-height: 100%;
+  background-image: url("../assets/light-abstract-colourful.jpg");
+  background-size: cover;
 }
 
 header {
@@ -51,6 +53,7 @@ header {
 .list {
   margin-left: 3em;
   margin-bottom: 1em;
+  color: aliceblue;
 }
 
 .information {
@@ -68,10 +71,12 @@ header {
   display: flex;
   margin-top: 5px;
   justify-content: space-between;
+  color: aliceblue;
 }
 
 .data:hover {
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
+  color: black;
 }
 
 .data > .sign {
