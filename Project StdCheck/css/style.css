@@ -9,9 +9,10 @@ body {
   font-weight: 500;
   height: auto;
   width: 100%;
-  min-height: 100%;
+  min-height: 150%;
   background-image: url("../assets/light-abstract-colourful.jpg");
   background-size: cover;
+  overflow-x: hidden;
 }
 
 header {
@@ -184,7 +185,7 @@ header {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: auto;
+  width: 100%;
   padding: 2em;
   background-color: #191919;
   color: #fff;
@@ -267,4 +268,14 @@ h5 {
 .auth-body {
   background-image: url("../assets/light-abstract-colourful.jpg");
   background-size: cover;
+}
+/* .student-body {
+  min-height: 100vh;
+} */
+.underground-title {
+  width: 95%;
+}
+.empty {
+  min-height: 50vh;
+  width: 80%;
 }
