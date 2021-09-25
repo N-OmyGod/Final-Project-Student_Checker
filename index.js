@@ -9,7 +9,7 @@ const timeConstants = require('./consts/time_consts')
 const connection = mysql.createConnection({
     host: "localhost", //адрес базы данных
     user: "root",
-    database: "posl", //название бд
+    database: "databases", //название бд
     password: "root"
 });
 
@@ -210,4 +210,17 @@ function checkCurrentLesson() {
     }
     return currentLesson;
 }
+app.get('/api/teacher-timetable/:id', (req, res) => {// id групппы получаем по этому id получаем студентов
+    const id = req.params.id
+    console.log(id)
+    let sql = `SELECT * FROM teachertimetable      
+LEFT JOIN lessons  ON lessons.Id=teachertimetable.LessonId 
+WHERE teachertimetable.TeacherId=${id}
+ORDER BY teachertimetable.Day`;
+    connection.query(sql, (err, data) => {
+        console.log(data)
+        res.send(data)
+    })
+})
+
 app.listen(PORT)

@@ -279,3 +279,15 @@ h5 {
   min-height: 50vh;
   width: 80%;
 }
+.input-schedule {
+  border-radius: 7px;
+  height: 50px;
+  color: #fff;
+  background-color: #52ce3dde;
+  width: 270px;
+  border-color: aliceblue;
+}
+
+.input-container {
+  margin-top: 70px;
+}

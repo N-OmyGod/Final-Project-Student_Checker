@@ -56,3 +56,10 @@ function getStudents(id) {
     }
     xhr.send()
 }
+function redirectToSchedule(){
+	var url = window.location.href.split("?");
+    var idx = url[1].split('&')
+    let id = idx[0]
+	console.log(id)
+	window.location.href = './schedule.html?' + id
+}

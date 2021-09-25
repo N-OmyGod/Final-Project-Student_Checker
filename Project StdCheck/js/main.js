@@ -64,3 +64,4 @@ function getAttendance() {
 	xhr.send()
 	
 }
+ 
